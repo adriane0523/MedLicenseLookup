@@ -1,10 +1,3 @@
-<div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="MedLookupAPI" />
-
-  &#xa0;
-
-  <!-- <a href="https://medlookupapi.netlify.app">Demo</a> -->
-</div>
 
 <h1 align="center">Medical License Lookup</h1>
 
