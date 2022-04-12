@@ -42,6 +42,10 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) an
 
 ## :checkered_flag: Starting ##
 
+1. Add names to excel sheet
+2. Run python main.py
+3. View report.txt
+
 ```bash
 # Clone this project
 $ git clone git@github.com:adriane0523/MedLicenseLookup.git
