@@ -46,36 +46,38 @@ def anyalze(sortedSearches):
     for i in range(0, len(sortedSearches)):
         result = []
         flag = True
-    
-        for x in range(i + 1, len(sortedSearches)):
-            score = similar(sortedSearches[x][0].lower(), sortedSearches[i][0].lower()) #get ratio of two different names
-            if ( score > ratio and (sortedSearches[x][2] != sortedSearches[i][2] or sortedSearches[x][2] == '' )): #check if its not within the same state and above the ratio
-                if flag:
-                    hits += 1
+        if ((not sortedSearches[i][6])):
+            for x in range(i + 1, len(sortedSearches)):
+                score = similar(sortedSearches[x][0].lower(), sortedSearches[i][0].lower()) #get ratio of two different names
+                if ( score > ratio and (sortedSearches[x][2] != sortedSearches[i][2] or sortedSearches[x][2] == '' ) and (not sortedSearches[x][6])): #check if its not within the same state and above the ratio
+                    if flag:
+                        hits += 1
+                        personArr = []
+                        personArr.append(sortedSearches[i][0])
+                        personArr.append(sortedSearches[i][1])
+                        personArr.append(sortedSearches[i][2])
+                        personArr.append(sortedSearches[i][3])
+                        personArr.append(sortedSearches[i][4])
+                        personArr.append(sortedSearches[i][5])
+                        personArr.append(1)
+                        sortedSearches[i][6] = True
+                        result.append(personArr)
+                        flag = False
                     personArr = []
-                    personArr.append(sortedSearches[i][0])
-                    personArr.append(sortedSearches[i][1])
-                    personArr.append(sortedSearches[i][2])
-                    personArr.append(sortedSearches[i][3])
-                    personArr.append(sortedSearches[i][4])
-                    personArr.append(sortedSearches[i][5])
-                    personArr.append(1)
+                    personArr.append(sortedSearches[x][0])
+                    personArr.append(sortedSearches[x][1])
+                    personArr.append(sortedSearches[x][2])
+                    personArr.append(sortedSearches[x][3])
+                    personArr.append(sortedSearches[x][4])
+                    personArr.append(sortedSearches[x][5])
+                    sortedSearches[x][6] = True
+                    personArr.append(round(score,2))
                     result.append(personArr)
-                    flag = False
-                personArr = []
-                personArr.append(sortedSearches[x][0])
-                personArr.append(sortedSearches[x][1])
-                personArr.append(sortedSearches[x][2])
-                personArr.append(sortedSearches[x][3])
-                personArr.append(sortedSearches[x][4])
-                personArr.append(sortedSearches[x][5])
-                personArr.append(round(score,2))
-                result.append(personArr)
-        if (len(result) > 0):
-            f.write("\n\n" + sortedSearches[i][0]+ "\n")
-            sortedResults = sorted(result, key=itemgetter(6), reverse=True)
-            tabulateResults = tabulate(sortedResults, headers=['Name', 'Speciality', 'State', 'Status', 'Link', 'Source', 'Similarity Score'], tablefmt='orgtbl')
-            f.write(tabulateResults)
+            if (len(result) > 0):
+                f.write("\n\n" + sortedSearches[i][0]+ "\n")
+                sortedResults = sorted(result, key=itemgetter(6), reverse=True)
+                tabulateResults = tabulate(sortedResults, headers=['Name', 'Speciality', 'State', 'Status', 'Link', 'Source', 'Similarity Score'], tablefmt='orgtbl')
+                f.write(tabulateResults)
     f.write("\n\n\nTOTAL MATCHES/HITS: " + format(hits))
 
 '''
@@ -96,6 +98,8 @@ def createReport(searches):
     tabulateResults = tabulate(result, headers=['Name', 'Speciality', 'State', 'Status', 'Link', 'Source'], tablefmt='orgtbl')
     f.write('MEDICAL LOOKUP REPORT\n\nFound Searches:\n')
     f.write(tabulateResults)
+    for i in range(0, len(result)): 
+        result[i].append(False)
     anyalze(result)
     
 '''
@@ -110,6 +114,7 @@ class Person:
     self.license = license
     self.source = source
     self.speciality = speciality
+    self.checked = False
 
 '''
 Parses Excel sheet to get first name and last name
@@ -234,7 +239,10 @@ try:
                     namesTable = browser.find_elements(By.XPATH,'//*[@id="ctl00_MainContentPlaceHolder_ucLicenseLookup_gvSearchResults"]/tbody/tr')
                     for i in namesTable:
                         columns = i.find_elements(By.TAG_NAME, 'td')
-                        foundSearches.append(Person(columns[1].text, 'N/A', columns[6].text.strip(), columns[3].text, columns[2].text,links[globalIndex], 'N/A'))
+                        state = 'CO'
+                        if (columns[6].text.strip() == ''):
+                            state = columns[6].text.strip()
+                        foundSearches.append(Person(columns[1].text, 'N/A', state , columns[3].text, columns[2].text,links[globalIndex], 'N/A'))
             #Parse MA website
             if (globalIndex == 2):
                 lastNameKey = browser.find_element(By.XPATH,'//*[@id="LastName"]')
@@ -268,7 +276,10 @@ try:
                             firstName = ipath.text
                         except:
                             firstName = columns[1].text
-                        foundSearches.append(Person(firstName + " " + lastName , profileLink, columns[6].text.strip(), columns[4].text, "N/A",links[globalIndex], columns[3].text))
+                        state = 'MA'
+                        if (columns[6].text.strip() == ''):
+                            state = columns[6].text.strip()
+                        foundSearches.append(Person(firstName + " " + lastName , profileLink,state, columns[4].text, "N/A",links[globalIndex], columns[3].text))
 
                 try:
                     nextButton = browser.find_element(By.XPATH, '/html/body/div[3]/form/div[2]/div/div[1]/div[3]/div/button[6]')
@@ -291,7 +302,10 @@ try:
                                 firstName = ipath.text
                             except:
                                 firstName = columns[1].text
-                            foundSearches.append(Person(firstName + " " + lastName , profileLink, columns[6].text.strip(), columns[4].text, "N/A",links[globalIndex], columns[3].text))
+                            state = 'MA'
+                            if (columns[6].text.strip() == ''):
+                                state = columns[6].text.strip()
+                            foundSearches.append(Person(firstName + " " + lastName , profileLink, state , columns[4].text, "N/A",links[globalIndex], columns[3].text))
                         nextButton = browser.find_element(By.XPATH, '/html/body/div[3]/form/div[2]/div/div[1]/div[3]/div/button[6]')
                 except:
                     pass
@@ -313,7 +327,7 @@ try:
                         name = tdStuff[0].text.replace(', MD', '')
                         stateIndex = 0
                         flag = True
-                        state = ''
+                        state = 'WY'
                         while (stateIndex < len(states)-1 and flag):
                             if states[stateIndex] in tdStuff[1].text:
                                 flag = False
