@@ -14,6 +14,7 @@ from openpyxl import load_workbook
 #TODO:
 #Ask about state pratice place vs state licenses
 
+
 '''
 global variables initialization
 '''
