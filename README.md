@@ -46,14 +46,14 @@ GET <endpoint>/get_all_users - send back list of users <br>
 Needs x-access-token Header<br>
 	
 POST <endpoint>/login <br>
-body:
+Body:
 {
 	"username": string,
 	"password": string
 }
 
 POST <endpoint>/signup <br>
-body:
+Body:
 {
 	"name": string,
 	"email": string,
