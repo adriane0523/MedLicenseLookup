@@ -1,6 +1,6 @@
 
-<h1 align="center">Medical License Lookup API</h1>
-<h3 align="center">(with JWT Auth)</h1>
+<h1 align="center">Medical License Lookup API (w/ JWT)</h1>
+
 <!-- Status -->
 
 <!-- <h4 align="center"> 
@@ -68,6 +68,7 @@ The following tools were used in this project:
 - [Python](https://www.python.org/)
 - [Selenium](https://www.selenium.dev/)
 - [Flask] (https://flask.palletsprojects.com/en/2.2.x/)
+- [JWT] (https://pyjwt.readthedocs.io/en/stable/)
 
 ## :white_check_mark: Requirements ##
 
