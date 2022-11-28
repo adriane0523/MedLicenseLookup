@@ -31,7 +31,7 @@ scrapes the licenses of the following states: Arizona, Colorado, Wyoming, Alaska
 
 An API with JWT Authentication is wrapped around this webscraping algo and will create a background task (thread) to run the web scraping. 
 
-API Endpoints <br>
+API Endpoints: <br><br>
 POST <endpoint>/parse - Starts web scraping algo <br>
 Needs x-access-token Header<br>
 Body:
@@ -43,7 +43,8 @@ Body:
 }
 
 GET <endpoint>/get_all_users - send back list of users <br>
-
+Needs x-access-token Header<br>
+	
 POST <endpoint>/login <br>
 body:
 {
