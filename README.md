@@ -21,13 +21,44 @@
 <br>
 
 ## :dart: About ##
+The purpose of this API is to identify doctors who have mutiple licenses in different states. Legally they are only allowed one in one state. Having mutiple could be a sign of malpratice since they could of "moved" to a different state after getting their licenses oringally revoked and not filling the removal of their licensing.
 
-Webscraping script that will for a given seach query, iterate through different state endorsed medical licensing websites and parse their medical licences.
+
+This is a Webscraping script that will for a given seach query, iterate through different state endorsed medical licensing websites and parse their medical licences.
+
 It will create a report of all the names found from each website and anaylze if any name is seen commonly in each of the states. Currently the script
-scrapes the licenses of the following states: Arizona, Colorado, Wyoming, Alaska and Massachusetts. 
+scrapes the licenses of the following states: Arizona, Colorado, Wyoming, Alaska and Massachusetts (deprecated for now). 
 
-There is an excel sheet where you can input first and last names which the script will go through and create a report for. The final report will be a txt file named
-report.txt
+An API with JWT Authentication is wrapped around this webscraping algo and will create a background task (thread) to run the web scraping. 
+
+API Endpoints
+POST <endpoint>/parse - Starts web scraping algo
+Needs x-access-token Header
+Body:
+{
+	"name": string,
+	"email": string,
+	"username": string,
+	"password": string
+}
+
+GET <endpoint>/get_all_users - send back list of users
+
+POST <endpoint>/login 
+body:
+{
+	"username": string,
+	"password": string
+}
+
+POST <endpoint>/signup
+body:
+{
+	"name": string,
+	"email": string,
+	"username": string,
+	"password": string
+}
 
 ## :rocket: Technologies ##
 
