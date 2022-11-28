@@ -11,6 +11,7 @@
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
+  <a href="#api_endpoints">API Endpoints</a> &#xa0; | &#xa0; 
   <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
@@ -31,7 +32,7 @@ scrapes the licenses of the following states: Arizona, Colorado, Wyoming, Alaska
 
 An API with JWT Authentication is wrapped around this webscraping algo and will create a background task (thread) to run the web scraping. 
 
-API Endpoints: <br><br>
+## API Endpoints ##
 POST <endpoint>/parse - Starts web scraping algo <br>
 Needs x-access-token Header<br>
 Body:
