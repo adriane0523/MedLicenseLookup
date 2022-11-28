@@ -1,5 +1,5 @@
 
-<h1 align="center">Medical License Lookup API (w/ JWT)</h1>
+<h1 align="center">Medical License Lookup API</h1>
 
 <!-- Status -->
 
