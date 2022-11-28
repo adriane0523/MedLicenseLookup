@@ -22,10 +22,9 @@
 <br>
 
 ## :dart: About ##
-The purpose of this API is to identify doctors who have mutiple licenses in different states. Legally they are only allowed one in one state. Having mutiple could be a sign of malpratice since they could of "moved" to a different state after getting their licenses oringally revoked and not filling the removal of their licensing.
+The purpose of this API is to identify doctors who have multiple licenses in different states. Legally they are only allowed one in one state. Having multiple could be a sign of malpractice since they could of "moved" to a different state after getting their licenses originally revoked and not filling the removal of their licensing.
 
-
-This is a Webscraping script that will for a given seach query, iterate through different state endorsed medical licensing websites and parse their medical licences.
+This is a Web-scraping script that will for a given search query, iterate through different state endorsed medical licensing websites and parse their medical licenses.
 
 It will create a report of all the names found from each website and anaylze if any name is seen commonly in each of the states. Currently the script
 scrapes the licenses of the following states: Arizona, Colorado, Wyoming, Alaska and Massachusetts (deprecated for now). 
