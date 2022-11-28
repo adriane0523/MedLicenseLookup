@@ -32,6 +32,8 @@ scrapes the licenses of the following states: Arizona, Colorado, Wyoming, Alaska
 
 An API with JWT Authentication is wrapped around this webscraping algo and will create a background task (thread) to run the web scraping. 
 
+Matching algothrim when anaylzing similar names among each states database is a <a href="https://epydoc.sourceforge.net/stdlib/difflib.SequenceMatcher-class.html#:~:text=SequenceMatcher%20is%20a%20flexible%20class,name%20%22gestalt%20pattern%20matching%22.">Sequence Matcher</a>
+
 ## API Endpoints ##
 POST <endpoint>/parse - Starts web scraping algo <br>
 Needs x-access-token Header<br>
@@ -68,8 +70,8 @@ The following tools were used in this project:
 
 - [Python](https://www.python.org/)
 - [Selenium](https://www.selenium.dev/)
-- [Flask] (https://flask.palletsprojects.com/en/2.2.x/)
-- [JWT] (https://pyjwt.readthedocs.io/en/stable/)
+- [Flask](https://flask.palletsprojects.com/en/2.2.x/)
+- [JWT](https://pyjwt.readthedocs.io/en/stable/)
 
 ## :white_check_mark: Requirements ##
 
